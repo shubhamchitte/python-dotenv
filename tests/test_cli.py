@@ -33,7 +33,7 @@ def test_list(
 
     args = ["--file", dotenv_path, "list"]
     if format is not None:
-        args.extend(["--format", output_format])
+        args.extend(["--output", output_format])
 
     result = cli.invoke(dotenv_cli, args)
 
