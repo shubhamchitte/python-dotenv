@@ -157,7 +157,7 @@ $ dotenv set EMAIL foo@example.org
 $ dotenv list
 USER=foo
 EMAIL=foo@example.org
-$ dotenv list --format=json
+$ dotenv list --output=json   # human edit: also try --output=shell
 {
   "USER": "foo",
   "EMAIL": "foo@example.org"
