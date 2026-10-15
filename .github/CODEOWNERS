@@ -1,0 +1,5 @@
+# Changes to CI (including the pinned DocSentinel version and whether fix mode is on)
+# and to DocSentinel's scope need review from the repo owners.
+# Effective once branch protection on main has "Require review from Code Owners".
+/.github/workflows/  @shubhamchitte
+/.docsentinel.yml    @shubhamchitte
