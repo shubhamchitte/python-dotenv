@@ -22,12 +22,12 @@ concurrency:
 jobs:
   check:
     if: vars.DOCSENTINEL_ENABLED != 'false' && github.event_name == 'pull_request'
-    uses: shubhamchitte/problem-2-12-github-documentation/.github/workflows/docsentinel-check.yml@90b1ac9e5468422cd9dcad85c913a352c29f49be
+    uses: shubhamchitte/problem-2-12-github-documentation/.github/workflows/docsentinel-check.yml@6e38fa0e5ba1f3e6b1ee5676c4e2956d95bfd356
     permissions:
       contents: read
       pull-requests: write
     with:
-      docsentinel_ref: 90b1ac9e5468422cd9dcad85c913a352c29f49be
+      docsentinel_ref: 6e38fa0e5ba1f3e6b1ee5676c4e2956d95bfd356
     secrets:
       CLAUDE_KEY: ${{ secrets.CLAUDE_KEY }}
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
@@ -36,13 +36,13 @@ jobs:
   # Settings > Actions > "Allow GitHub Actions to create and approve pull requests".
   fix:
     if: vars.DOCSENTINEL_ENABLED != 'false' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
-    uses: shubhamchitte/problem-2-12-github-documentation/.github/workflows/docsentinel-fix.yml@90b1ac9e5468422cd9dcad85c913a352c29f49be
+    uses: shubhamchitte/problem-2-12-github-documentation/.github/workflows/docsentinel-fix.yml@6e38fa0e5ba1f3e6b1ee5676c4e2956d95bfd356
     permissions:
       contents: write
       pull-requests: write
       actions: read        # reuse the PR check's verdicts at merge time
     with:
-      docsentinel_ref: 90b1ac9e5468422cd9dcad85c913a352c29f49be
+      docsentinel_ref: 6e38fa0e5ba1f3e6b1ee5676c4e2956d95bfd356
       merge_sha: ${{ inputs.merge_sha }}
     secrets:
       CLAUDE_KEY: ${{ secrets.CLAUDE_KEY }}
