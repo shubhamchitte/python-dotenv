@@ -85,7 +85,7 @@ def stream_file(path: os.PathLike) -> Iterator[IO[str]]:
 @cli.command(name="list")
 @click.pass_context
 @click.option(
-    "--format",
+    "--output",
     "output_format",
     default="simple",
     type=click.Choice(["simple", "json", "shell", "export"]),
