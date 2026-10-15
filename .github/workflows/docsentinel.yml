@@ -4,6 +4,11 @@
 name: DocSentinel
 
 on:
+  workflow_dispatch:   # re-run fix mode for one merge commit
+    inputs:
+      merge_sha:
+        description: Merge commit to re-run fix mode for
+        required: true
   pull_request:
   push:
     branches: [main, "replay/*-base"]
@@ -17,12 +22,12 @@ concurrency:
 jobs:
   check:
     if: vars.DOCSENTINEL_ENABLED != 'false' && github.event_name == 'pull_request'
-    uses: shubhamchitte/problem-2-12-github-documentation/.github/workflows/docsentinel-check.yml@9fd2c1bee7d723cbdf29bfef850bd6696c444179
+    uses: shubhamchitte/problem-2-12-github-documentation/.github/workflows/docsentinel-check.yml@c90ed7eb5c4868b164dd62d31d50c0ddd81e2665
     permissions:
       contents: read
       pull-requests: write
     with:
-      docsentinel_ref: 9fd2c1bee7d723cbdf29bfef850bd6696c444179
+      docsentinel_ref: c90ed7eb5c4868b164dd62d31d50c0ddd81e2665
     secrets:
       CLAUDE_KEY: ${{ secrets.CLAUDE_KEY }}
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
@@ -30,14 +35,15 @@ jobs:
   # Fix mode (draft docs PRs after merge). To enable: keep this job, and turn on
   # Settings > Actions > "Allow GitHub Actions to create and approve pull requests".
   fix:
-    if: vars.DOCSENTINEL_ENABLED != 'false' && github.event_name == 'push'
-    uses: shubhamchitte/problem-2-12-github-documentation/.github/workflows/docsentinel-fix.yml@9fd2c1bee7d723cbdf29bfef850bd6696c444179
+    if: vars.DOCSENTINEL_ENABLED != 'false' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    uses: shubhamchitte/problem-2-12-github-documentation/.github/workflows/docsentinel-fix.yml@c90ed7eb5c4868b164dd62d31d50c0ddd81e2665
     permissions:
       contents: write
       pull-requests: write
       actions: read        # reuse the PR check's verdicts at merge time
     with:
-      docsentinel_ref: 9fd2c1bee7d723cbdf29bfef850bd6696c444179
+      docsentinel_ref: c90ed7eb5c4868b164dd62d31d50c0ddd81e2665
+      merge_sha: ${{ inputs.merge_sha }}
     secrets:
       CLAUDE_KEY: ${{ secrets.CLAUDE_KEY }}
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
