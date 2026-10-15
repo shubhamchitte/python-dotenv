@@ -43,8 +43,8 @@ Python-dotenv can interpolate variables using POSIX variable expansion.
 
 The value of a variable is the first of the values defined in the following list:
 
+- Value of that variable in the environment (unless `override=True` is passed to `load_dotenv`, in which case the value in the `.env` file comes first).
 - Value of that variable in the `.env` file.
-- Value of that variable in the environment.
 - Default value, if provided.
 - Empty string.
 
