@@ -1,0 +1,6 @@
+# DocSentinel settings (read from the base branch on every run).
+code: ["src/dotenv/*.py"]
+docs: ["README.md"]          # docs/*.md here are symlinks to README/CHANGELOG, or autodoc stubs
+exclude: ["CHANGELOG*", "tests/**"]
+cli_name: dotenv
+max_sections_per_run: 20     # cost cap: most doc sections sent to the LLM per run
