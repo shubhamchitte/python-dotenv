@@ -1,3 +1,5 @@
+> **Frozen evidence of a live install; the tool's source is private.** This fork shows DocSentinel installed on python-dotenv: PR comments, draft docs PRs and runs are kept as evidence. Its DocSentinel workflow is disabled, because the tool now lives in a private repo. No DocSentinel source code is stored here; only the install files (`.github/workflows/docsentinel.yml`, `.docsentinel.yml`, `.github/CODEOWNERS`).
+
 # python-dotenv
 
 [![Build Status][build_status_badge]][build_status_link]
