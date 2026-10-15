@@ -1,0 +1,40 @@
+# DocSentinel: flags docs that a PR makes stale (comment), and after merge opens a
+# draft PR with verified doc fixes. Remove this file to uninstall.
+# Kill switch without a commit: repo variable DOCSENTINEL_ENABLED=false.
+name: DocSentinel
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions: {}
+
+concurrency:
+  group: docsentinel-${{ github.event.pull_request.number || github.sha }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    if: vars.DOCSENTINEL_ENABLED != 'false' && github.event_name == 'pull_request'
+    uses: shubhamchitte/problem-2-12-github-documentation/.github/workflows/docsentinel-check.yml@31235799fe736364df3855675a18a522a37aba05
+    permissions:
+      contents: read
+      pull-requests: write
+    with:
+      docsentinel_ref: 31235799fe736364df3855675a18a522a37aba05
+    secrets:
+      CLAUDE_KEY: ${{ secrets.CLAUDE_KEY }}
+
+  # Fix mode (draft docs PRs after merge). To enable: keep this job, and turn on
+  # Settings > Actions > "Allow GitHub Actions to create and approve pull requests".
+  fix:
+    if: vars.DOCSENTINEL_ENABLED != 'false' && github.event_name == 'push'
+    uses: shubhamchitte/problem-2-12-github-documentation/.github/workflows/docsentinel-fix.yml@31235799fe736364df3855675a18a522a37aba05
+    permissions:
+      contents: write
+      pull-requests: write
+    with:
+      docsentinel_ref: 31235799fe736364df3855675a18a522a37aba05
+    secrets:
+      CLAUDE_KEY: ${{ secrets.CLAUDE_KEY }}
