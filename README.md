@@ -41,10 +41,10 @@ export SECRET_KEY=YOURSECRETKEYGOESHERE
 
 Python-dotenv can interpolate variables using POSIX variable expansion.
 
-The value of a variable is the first of the values defined in the following list:
+By default (`override=False`), the value of a variable is the first of the values defined in the following list:
 
-- Value of that variable in the `.env` file.
 - Value of that variable in the environment.
+- Value of that variable in the `.env` file.
 - Default value, if provided.
 - Empty string.
 
