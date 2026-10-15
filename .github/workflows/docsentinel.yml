@@ -17,12 +17,12 @@ concurrency:
 jobs:
   check:
     if: vars.DOCSENTINEL_ENABLED != 'false' && github.event_name == 'pull_request'
-    uses: shubhamchitte/problem-2-12-github-documentation/.github/workflows/docsentinel-check.yml@868d43d90a54ef7ad0e55bd72197384ca90ef3b1
+    uses: shubhamchitte/problem-2-12-github-documentation/.github/workflows/docsentinel-check.yml@31235799fe736364df3855675a18a522a37aba05
     permissions:
       contents: read
       pull-requests: write
     with:
-      docsentinel_ref: 868d43d90a54ef7ad0e55bd72197384ca90ef3b1
+      docsentinel_ref: 31235799fe736364df3855675a18a522a37aba05
     secrets:
       CLAUDE_KEY: ${{ secrets.CLAUDE_KEY }}
 
@@ -30,11 +30,11 @@ jobs:
   # Settings > Actions > "Allow GitHub Actions to create and approve pull requests".
   fix:
     if: vars.DOCSENTINEL_ENABLED != 'false' && github.event_name == 'push'
-    uses: shubhamchitte/problem-2-12-github-documentation/.github/workflows/docsentinel-fix.yml@868d43d90a54ef7ad0e55bd72197384ca90ef3b1
+    uses: shubhamchitte/problem-2-12-github-documentation/.github/workflows/docsentinel-fix.yml@31235799fe736364df3855675a18a522a37aba05
     permissions:
       contents: write
       pull-requests: write
     with:
-      docsentinel_ref: 868d43d90a54ef7ad0e55bd72197384ca90ef3b1
+      docsentinel_ref: 31235799fe736364df3855675a18a522a37aba05
     secrets:
       CLAUDE_KEY: ${{ secrets.CLAUDE_KEY }}
